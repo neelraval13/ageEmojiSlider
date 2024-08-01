@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="index.css">
+    </head>
+    <body>
+        <form id="slider" @submit.prevent>
+            
+            <!-- Dropdown for selecting gender -->
+            <div style="margin-bottom: 1vh;">
+                <label for="gender">Gender: </label>
+                <select v-model="gender" id="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            
+            <!-- This label and input are the "real" elements. -->
+            <label style="text-align: right;" for="range" :style="{ color: getHappinessColor }">Age: {{ val }}</label>
+            <input v-model.number="val" id="range" type="range" min="0" max="100">
+
+            <!-- This div and label is what makes the visual effect, but is hidden to assistive technologies -->
+            <div class="slider outer" aria-hidden="true">
+                <label 
+                    for="range"
+                    :style="{ width: `${val}%`, borderRadius: greaterThanFifty, background: getSliderBackground }"
+                    class="slider inner"
+                >
+                </label>
+                <span class="emoji" :style="{ transform: `translateX(${getPlacement})` }">
+                    {{ getHappiness }}
+                </span>
+            </div>
+        </form>
+        <!-- Commented out for now: <p v-if="val > 80">{{ getOldAgeMessage }}</p> -->
+        <!-- Include Vue.js from a CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <script src="index.js"></script>
+    </body>
+</html>
